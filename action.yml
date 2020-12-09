@@ -1,5 +1,5 @@
-name: 'Backup Action'
-description: 'Easy backup of the Database or Directory'
+name: 'Alternate Backup Action'
+description: 'Easy backup of the Database or Directory, uses SSH port value and less inclusive rsync'
 author: 'Valerian Pereira'
 
 inputs:
