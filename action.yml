@@ -1,0 +1,102 @@
+name: 'Backup Action'
+description: 'Easy backup of the Database or Directory'
+author: 'Valerian Pereira'
+
+inputs:
+  host:
+    description: 'ssh host'
+  port:
+    description: 'ssh port'
+    default: 22
+  passphrase:
+    description: 'ssh key passphrase'
+  username:
+    description: 'ssh username'
+  password:
+    description: 'ssh password'
+  sync:
+    description: 'synchronous execution if multiple hosts'
+    default: false
+  use_insecure_cipher:
+    description: 'include more ciphers with use_insecure_cipher'
+    default: false
+  cipher:
+    description: 'the allowed cipher algorithms. If unspecified then a sensible'
+  timeout:
+    description: 'timeout for ssh to host'
+    default: "30s"
+  command_timeout:
+    description: 'timeout for ssh command'
+    default: "10m"
+  key:
+    description: 'content of ssh private key. ex raw content of ~/.ssh/id_rsa'
+    required: true
+  key_path:
+    description: 'path of ssh private key'
+  fingerprint:
+    description: 'sha256 fingerprint of the host public key'
+  proxy_host:
+    description: 'ssh proxy host'
+  proxy_port:
+    description: 'ssh proxy port'
+    default: 22
+  proxy_username:
+    description: 'ssh proxy username'
+  proxy_password:
+    description: 'ssh proxy password'
+  proxy_passphrase:
+    description: 'ssh proxy key passphrase'
+  proxy_timeout:
+    description: 'timeout for ssh to proxy host'
+    default: "30s"
+  proxy_key:
+    description: 'content of ssh proxy private key. ex raw content of ~/.ssh/id_rsa'
+  proxy_key_path:
+    description: 'path of ssh proxy private key'
+  proxy_fingerprint:
+    description: 'sha256 fingerprint of the proxy host public key'
+  proxy_cipher:
+    description: 'the allowed cipher algorithms. If unspecified then a sensible'
+  proxy_use_insecure_cipher:
+    description: 'include more ciphers with use_insecure_cipher'
+    default: false
+  script:
+    description: 'execute commands'
+  script_stop:
+    description: 'stop script after first failure'
+    default: false
+  envs:
+    description: 'pass environment variable to shell script'
+  debug:
+    description: 'enable debug mode'
+    default: false
+  type:
+    description: 'type of backup to be triggered (directory or db)'
+    required: true
+  db_type:
+    description: 'type of database'
+  db_user:
+    description: 'database username'
+  db_pass:
+    description: 'database password'
+  db_name:
+    description: 'database name'
+  db_host:
+    description: 'database host'
+    default: 'localhost'
+  db_port:
+    description: 'database port'
+  auth_db:
+    description: 'authenticationDatabase Required for Mongo DB v4.4.0 - Defaults to admin'
+  args:
+    description: 'additional arguments with backup command if you want to pass'
+  dirpath:
+    description: 'directory to be backuped'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: 'archive'
+  color: 'gray-dark'

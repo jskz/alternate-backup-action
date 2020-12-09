@@ -1,0 +1,95 @@
+name: Backup Action Test
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: Backup MySQL DB
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        type: db
+        db_type: mysql
+        db_user: ${{ secrets.MYSQL_USER }}
+        db_pass: ${{ secrets.MYSQL_PASS }}
+        db_port: 3306
+        db_name: world
+
+    - name: Backup Mongo DB
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }} # Defaults to root
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        type: db
+        db_type: mongo
+        db_user: webgeeksAdmin
+        db_pass: DD9e3H9Gp?X#nZNA
+        db_port: 27017
+        # auth_db: ${{ secrets.authenticationDatabase }} # Required for Mongo DB v4.4.0 - Defaults to admin
+        db_name: world
+
+    - name: Backup Postgres DB
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }} # Defaults to root
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        type: db
+        db_type: postgres
+        db_user: webgeeks
+        db_pass: awkswBPByT258c3
+        db_port: 5432 # Defaults to 5432
+        db_name: world
+
+    - name: SSH Password - Login Backup Directory
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }} # Defaults to root
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        type: directory
+        dirpath: /var/www/html
+    
+    - name: SSH Key Login - Backup a Directory + Additional Commands to run Simultaneously
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        type: directory
+        dirpath: /var/www/html
+        script: |
+          whoami
+          ls -al
+
+    - name: Simply Run SSH Commands to Remote Server
+      uses: ./
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          whoami
+          ls -al
