@@ -92,6 +92,8 @@ inputs:
     description: 'additional arguments with backup command if you want to pass'
   dirpath:
     description: 'directory to be backuped'
+  zip_password:
+    description: 'password to archive the zip with'
 
 runs:
   using: 'docker'
