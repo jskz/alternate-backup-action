@@ -112,6 +112,7 @@ Backup Config:
 * auth_db: authenticationDatabase Required for Mongo DB v4.4.0 `default: admin`
 * args: additional arguments with backup command if you want to pass `optional`
 * dirpath: directory path to be backuped `required when type is set to directory`
+* zip_password: password to archive the zip with `required`
 
 SSH Proxy Setting:
 * proxy_host - proxy host

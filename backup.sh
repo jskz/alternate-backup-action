@@ -52,14 +52,13 @@ if [ "$INPUT_TYPE" = "db" ]; then
     fi
 
     if [ "$INPUT_DB_TYPE" = "mysql" ]; then
-      FILENAME=$INPUT_DB_TYPE-$INPUT_DB_NAME.$THEDATE.sql.gz
+      FILENAME=$INPUT_DB_TYPE-$INPUT_DB_NAME.$THEDATE.sql
       INPUT_DB_PORT="${INPUT_DB_PORT:-3306}"
 
       if [ ! -z "$INPUT_DB_PASS" ] && [ "$INPUT_DB_PASS" != "" ]; then
         INPUT_PASS="-p'$INPUT_DB_PASS'"
       fi
-
-      INPUT_SCRIPT="mysqldump -q -u $INPUT_DB_USER -P $INPUT_DB_PORT $INPUT_PASS $INPUT_ARGS $INPUT_DB_NAME | gzip -9 > $FILENAME ${EXTRA_SCRIPT}"
+      INPUT_SCRIPT="mysqldump -q -u $INPUT_DB_USER -P $INPUT_DB_PORT $INPUT_PASS $INPUT_ARGS $INPUT_DB_NAME > $FILENAME && zip --password $INPUT_ZIP_PASSWORD $FILENAME.zip $FILENAME"
     fi
 
     if [ "$INPUT_DB_TYPE" = "mongo" ]; then
