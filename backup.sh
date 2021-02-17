@@ -59,7 +59,7 @@ if [ "$INPUT_TYPE" = "db" ]; then
       if [ ! -z "$INPUT_DB_PASS" ] && [ "$INPUT_DB_PASS" != "" ]; then
         INPUT_PASS="-p'$INPUT_DB_PASS'"
       fi
-      INPUT_SCRIPT="mysqldump -q -u $INPUT_DB_USER -P $INPUT_DB_PORT $INPUT_PASS $INPUT_ARGS $INPUT_DB_NAME > $FILENAME && zip --password $INPUT_ZIP_PASSWORD $OUTPUT_ZIP $FILENAME"
+      INPUT_SCRIPT="mysqldump -q -u $INPUT_DB_USER -P $INPUT_DB_PORT $INPUT_PASS $INPUT_ARGS $INPUT_DB_NAME > $FILENAME && zip --password $INPUT_ZIP_PASSWORD $OUTPUT_ZIP $FILENAME && rm $FILENAME"
     fi
 
     if [ "$INPUT_DB_TYPE" = "mongo" ]; then
